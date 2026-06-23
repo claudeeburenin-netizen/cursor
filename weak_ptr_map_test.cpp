@@ -31,9 +31,11 @@ int main() {
     owners["persistent"] = std::make_shared<StructA>("persistent");
     weak_map["persistent"] = owners.at("persistent");
 
-    auto value = weak_map.at("persistent").lock();
-    assert(value);
-    assert(value->name == "persistent");
+    {
+      auto value = weak_map.at("persistent").lock();
+      assert(value);
+      assert(value->name == "persistent");
+    }
 
     owners.clear();
     assert(weak_map.at("persistent").expired());
